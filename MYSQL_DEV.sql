@@ -60,4 +60,30 @@ DELETE FROM t_produtos WHERE codigo IN (6, 7, 8);
 
 DELETE FROM t_produtos WHERE preco IS NULL;
 
+-------------------------------------------------------------------------------------
 
+--> CONSULTAS SIMPLES
+
+SELECT nome, preco
+FROM   t_produtos
+WHERE  codigo = 15
+
+SELECT nome, preco
+FROM   t_produtos
+WHERE  codigo 
+IN     (18,19);
+
+SELECT nome, preco
+FROM   t_produtos
+WHERE  codigo 
+NOT IN (20,21);
+
+SELECT codigo, nome, preco
+FROM   t_produtos
+WHERE  preco 
+BETWEEN 3.2 AND 6.1
+
+SELECT codigo, nome, preco
+FROM   t_produtos
+WHERE  nome 
+LIKE   'Ba%'

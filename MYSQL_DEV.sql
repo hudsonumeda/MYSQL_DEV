@@ -49,3 +49,15 @@ PDATE t_produtos SET nome = 'Filé de Frango', preco = 9.25 WHERE codigo = 7;  -
 
 -- UPDATE COM 'IN', PARA PEGAR VÁRIOS CÓDIGOS:
 UPDATE t_produtos SET preco = preco + 1 WHERE codigo IN (6, 7, 8);
+
+----------------------------------------------------------------------------------------
+
+--> REMOVER LINHAS - DROP: TABELAS E BANCOS, DELETE: LINHAS
+
+DELETE FROM t_produtos WHERE codigo = 5;
+
+DELETE FROM t_produtos WHERE codigo IN (6, 7, 8);
+
+DELETE FROM t_produtos WHERE preco IS NULL;
+
+

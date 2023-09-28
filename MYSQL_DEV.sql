@@ -25,5 +25,17 @@ ALTER TABLE t_clientes MODIFY nome VARCHAR(200);
 -- DROP NA TABELA(db_devmedia):
 DROP TABLE db_devmedia;
 
+--------------------------------------------------------------------
 
+--> INSERIR DADOS NA TABELA (INSERIR LINHAS)
+
+CREATE TABLE t_produtos 
+(
+    codigo    INT,
+    nome      VARCHAR(100),
+    preco     DECIMAL(10,0)
+)
+
+INSERT INTO t_produtos (codigo, nome, preco) VALUES (1, 'Café',3.90),
+INSERT INTO t_produtos (codigo, nome, preco) VALUES (2, 'Nescau',4.50),
 

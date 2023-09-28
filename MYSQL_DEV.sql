@@ -39,3 +39,13 @@ CREATE TABLE t_produtos
 INSERT INTO t_produtos (codigo, nome, preco) VALUES (1, 'Café',3.90),
 INSERT INTO t_produtos (codigo, nome, preco) VALUES (2, 'Nescau',4.50),
 
+-------------------------------------------------------------------------------
+
+--> ATUALIZAR DADOS 
+
+UPDATE t_produtos SET nome = 'Água Mineral' WHERE codigo = 8;
+
+PDATE t_produtos SET nome = 'Filé de Frango', preco = 9.25 WHERE codigo = 7;  --> ALTERANDO NOME E PREÇO, DO PRODUTO COM CODIGO 7
+
+-- UPDATE COM 'IN', PARA PEGAR VÁRIOS CÓDIGOS:
+UPDATE t_produtos SET preco = preco + 1 WHERE codigo IN (6, 7, 8);

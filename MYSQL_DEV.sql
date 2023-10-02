@@ -87,3 +87,124 @@ SELECT codigo, nome, preco
 FROM   t_produtos
 WHERE  nome 
 LIKE   'Ba%'
+
+-----------------------------------------------------------------------------
+
+-->CAMPOS CALCULADOS
+
+SELECT codigo,
+       nome,
+       preco, 
+       preco + 1  AS preco_novo
+FROM   t_produtos;
+
+---------------------------------------------------------------------
+
+-->ORDENAÇÃO
+
+SELECT  codigo,
+        nome,
+        preco
+FROM    t_produtos
+ORDER BY preco ASC;     --> DESC ou ASC
+
+SELECT  codigo,
+        nome,
+        preco
+FROM    t_produtos
+ORDER BY preco DESC, nome ASC;  
+
+----------------------------------------------------------------------------
+
+--> FUNÇÕES DE AGREGAÇÃO
+
+--SOMA
+SELECT SUM(quantidade)  AS quantidade_vendas
+FROM   vendas
+WHERE  codigo = '100';
+
+-->MÉDIA
+SELECT AVG(quantidade)  AS media_vendas
+FROM   vendas
+WHERE  codigo = '100';
+
+-->MAX
+SELECT MAX(quantidade)  AS max_vendas  -->MAIOR VALOR DA COLUNA
+FROM   vendas
+WHERE  codigo = '100';
+
+-->MIN
+SELECT MAX(quantidade)  AS min_vendas  --> MENOS VALOR DA COLUNA
+WHERE  codigo = '100';
+
+-->COUNT
+SELECT COUNT(*)  AS min_vendas
+FROM   vendas
+WHERE  codigo = '100';
+
+----------------------------------------------------------------
+
+-->AGRUPAMENTO DE DAOS
+
+SELECT   data_venda,
+         SUM(quantidade)
+FROM     t_vendas
+WHERE    id_produto = '199'
+GROUP BY data_venda
+HAVING   SUM(quantidade) > 2;   -->APLICA FILTRO SOBRE AGRUPAMENTOS!
+
+SELECT   vendedor,
+         SUM(valor)
+FROM     t_vendas
+GROUP BY vendedor
+HAVING   SUM(valor) > 5000,
+
+SELECT   estado,
+         SUM(valor_venda) 
+FROM     regiao = 'Sudeste'
+GROUP BY estado
+HAVING   SUM(valor_venda) > 4000;
+
+--WHERE: APLICA FILTRO EM LINHAS INDIVIDUAIS, AGE COMO PRÉ-FILTRO, PODE USA NO SELECT, UPDATE E DELETE
+--HAVING: APLICA FILTROS EM GRUPOS, AGE COMO PÓS-FILTRO, SOMENTE ULTILIZADO COM SELECT 
+
+-------------------------------------------------------------------------------
+
+--> JUNTAR TABELAS - JOIN
+
+SELECT     clientes.codigo,
+           clientes.nome,
+           clientes.codigo_vendedor,
+           vendedores.nome
+FROM       t_clientes
+RIGHT JOIN vendedores 
+ON         clientes.codigo_vendedor = vendedores.codigo;
+
+--> UNION
+
+SELECT   descricao,
+         valor,
+         vencimento,
+         'receber'        AS tipo
+FROM     t_contas_receber
+UNION                         --> SUPRIME RECURSOS IGUAIS! REOMVE AS DUPLICADAS
+SELECT   descricao,
+         valor,
+         vencimento,
+         'pagar'          AS tipo
+FROM     t_contas_pagar
+ORDER BY vencimento;
+
+
+SELECT   descricao,
+         valor,
+         vencimento,
+         'receber'        AS tipo
+FROM     t_contas_receber
+UNION                         --> NÃO SUPRIME NADA!
+SELECT   descricao,
+         valor,
+         vencimento,
+         'pagar'          AS tipo
+FROM     t_contas_pagar
+ORDER BY vencimento;

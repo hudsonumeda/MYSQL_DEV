@@ -208,3 +208,69 @@ SELECT   descricao,
          'pagar'          AS tipo
 FROM     t_contas_pagar
 ORDER BY vencimento;
+
+------------------------------------------------------------------------------------------------
+
+--> SUBQUERY 
+
+SELECT p.*
+FROM   t_projetos p
+WHERE  p.id IN     
+       (
+        SELECT c.id_projeto 
+        FROM   t_comentario c 
+        WHERE  c.id_projeto = p.id
+       );
+
+-- MESMO RESULTADO DA QUERY ACIMA:
+SELECT     p.*
+FROM       t_projetos p
+INNER JOIN t_comentario c 
+ON         c.id_projeto = p.id
+ORDER BY   p.id;
+
+
+SELECT p.*
+FROM   t_projetos p
+WHERE  p.id NOT IN     
+       (
+        SELECT c.id_projeto 
+        FROM   t_comentario c 
+        WHERE  c.id_projeto = p.id
+       );       
+
+--> NOVA COLUNA COM SUBQUERY - SUBQUERY COMO COLUNA
+
+SELECT p.id,
+       p.nome,
+       p.preco,
+       (SELECT AVG(p2.PRECO)
+        FROM   produto p2
+       ) AS media_global
+FROM   produto p;]
+
+--> SUBQUERY NO FROM
+
+SELECT t.id,
+       t.nome,
+       t.preco,
+       t.media_global
+FROM
+(  
+        SELECT p.id,
+              p.nome,
+              p.preco,
+              (SELECT AVG(p2.PRECO) FROM produto p2) AS media_global
+        FROM   produto p  
+) AS t
+WHERE T.preco > T.media_global 
+
+
+SELECT t.*
+FROM
+(  
+        SELECT v.*,
+              (SELECT AVG(p2.PRECO) FROM produto p2) AS media_global
+        FROM  venda_produto v
+) AS t
+WHERE T.preco > T.media_global 
